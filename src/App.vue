@@ -1,9 +1,109 @@
 <script setup>
 
+  import { ref, computed } from 'vue';
+  
+  const questions = ref([
+    {
+      question: 'Quem descobriu o Brasil?',
+      answer: 0,
+      options: [
+        'Pedro Alvares Cabral',
+        'Pedro Alves',
+        'Pedro Cabralia'
+      ],
+      selected: null
+    },
+    {
+      question: 'Em que ano o Brasil foi descoberto?',
+      answer: 2,
+      options: [
+        '2023',
+        '1350',
+        '1500'
+      ],
+      selected: null
+    },
+    {
+      question: 'Qual a capital do Brasil?',
+      answer: 1,
+      options: [
+        'Bragança',
+        'Brasília',
+        'Belém'
+      ],
+      selected: null
+    },
+    {
+      question: 'Qual a raiz quadrada de 5?',
+      answer: 4,
+      options: [
+        '5',
+        '25',
+        '2.24'
+      ],
+      selected: null
+    },
+    {
+      question: 'Qual é a base de 5 elevado a 2?',
+      answer: 3,
+      options: [
+        '25',
+        '15',
+        '125'
+      ],
+      selected: null
+    }
+  ]);
+
+  const completedQuiz = ref(false)
+  const currenteQuestion = ref(0)
+
+  const scoreQuiz = computed(() => {
+
+    let value = 0
+
+    questions.value.map(quest => {
+      
+      if(quest.selected == quest.answer) {
+        value++
+      }
+    })
+    return value
+
+  });
+
+  const getCurrentQuestion = computed(() => {
+
+    let question = questions.value[currenteQuestion.value]
+    question.index = currenteQuestion.value
+
+    return question
+
+  });
+
+  const setAnswer = eAnswer => {
+
+    questions.value[currenteQuestion.value].selected = eAnswer.target.value
+    eAnswer.target.value = null
+
+  };
+
+  const nextQuestion = () => {
+
+    if(currenteQuestion.value < questions.value.length - 1) {
+      currenteQuestion.value++
+    } else {
+      completedQuiz.value = true
+    }
+
+  };
+
 </script>
   
 <template>
+
   <h1>vue</h1>
+
 </template>
 
 <style lang="css">
