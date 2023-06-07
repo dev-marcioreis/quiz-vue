@@ -87,16 +87,17 @@
 <template>
 
   <main class="main container">
-    <h1>quiz</h1>
+    <h1>quiz<span>vue</span></h1>
+
     <section class="quiz-container" v-if="!completedQuiz">
 
       <div class="quiz-info">
         <p class="question">{{ getCurrentQuestion.question }}</p>
-        <p class="score">acertos: {{ scoreQuiz }}/{{ questions.length }}</p>
+        <p class="score">resposta: <span>{{ scoreQuiz }}/{{ questions.length }}</span></p>
       </div>
 
       <div class="options">
-        <span v-for="(option, index) in getCurrentQuestion.options" 
+        <label v-for="(option, index) in getCurrentQuestion.options" 
         :key="index" 
         :class="`option ${getCurrentQuestion.selected == index 
           ? index == getCurrentQuestion.answer 
@@ -115,7 +116,7 @@
 
           <span>{{ option }}</span>
 
-        </span>
+          </label>
       </div>
 
       <button @click="nextQuestion" :disabled="!getCurrentQuestion.selected">
@@ -128,9 +129,9 @@
 
     </section>
 
-    <section v-else>
+    <section v-else class="finish">
       <h2>Você terminou o quiz!</h2>
-      <p>Seus acertos: {{ scoreQuiz }} / {{ questions.length }}</p>
+      <p>Seus acertos: <span>{{ scoreQuiz }} / {{ questions.length }}</span></p>
       <button class="reload" @click="reloadPage()">começar denovo</button>
     </section>
 
@@ -157,9 +158,8 @@
 
     --primary-color: hsl(25, 76%, 90%);
     --dark-color: hsl(0, 0%, 13%);
-    --black-color: hsl(0, 0%, 0%);
     --white-color: hsl(0, 0%, 100%);
-    --green-color: hsl(154, 100%, 81%);
+    --green-color: hsl(154, 49%, 49%);
     --red-color: hsl(347, 100%, 71%);
 
     --transition: all 400ms ease-in-out;
@@ -176,7 +176,6 @@
   body {
     background: var(--primary-color);
     color: var(--dark-color);
-    height: 300rem;
   }
 
   ::-webkit-scrollbar {
@@ -195,5 +194,125 @@
   }
 
   /*==========Quiz==========*/
+  .main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  .main h1 {
+    margin-block-end: 1rem;
+    text-transform: uppercase;
+    text-shadow: var(--shadow-1);
+    color: var(--white-color);
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+  }
+  .main h1 span {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--green-color);
+    text-shadow: none;
+    margin-left: .3rem;
+    font-style: italic;
+  }
+  .quiz-container {
+    width: 100%;
+    max-width: 640px;
+    background: var(--white-color);
+    padding: 1rem;
+    border-radius: .5rem;
+    box-shadow: var(--shadow);
+  }
+  .quiz-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-block-end: 2rem;
+  }
+  .quiz-info .question {
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+  .quiz-info .score {
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+  .quiz-info .score span {
+    color: var(--red-color);
+    font-weight: 500;
+  }
+  .options {
+    margin-block-end: 2rem;
+  }
+  .options .option {
+    display: block;
+    padding: .5rem;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  .options .option:hover {
+    background: hsl(0, 0%, 91%);
+  }
+  .option.correct {
+    background: var(--green-color);
+    color: var(--white-color);
+  }
+  .option.wrong {
+    background: var(--red-color);
+    color: var(--white-color);
+  }
+  .option:last-of-type {
+    margin-block-end: 0;
+  }
+  .option.disable {
+    opacity: 0.5;
+  }
+  .option input {
+    display: none;
+  }
+  button {
+    appearance: none;
+    padding: .5rem 1rem;
+    cursor: pointer;
+    background: var(--dark-color);
+    color: var(--white-color);
+    box-shadow: var(--shadow);
+  }
+  button:disabled {
+    opacity: 0.5;
+  }
+  .finish {
+    background: var(--white-color);
+    padding: 1rem;
+    border-radius: .5rem;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .finish h2 {
+    color: var(--green-color);
+    font-weight: 500;
+    margin-block-end: 1rem;
+  }
+  .finish p {
+    font-weight: 600;
+    margin-block-end: 2rem;
+  }
+  .finish p span {
+    padding: .3rem;
+    box-shadow: var(--shadow-1);
+    background: var(--green-color);
+    color: var(--white-color);
+    margin-left: .5rem;
+  }
+  .finish button {
+    text-transform: uppercase;
+    transition: var(--transition);
+  }
+  .finish button:hover {
+    background: var(--green-color);
+  }
+  
 
 </style>
