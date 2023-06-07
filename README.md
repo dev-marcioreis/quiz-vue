@@ -1,7 +1,19 @@
-# Vue 3 + Vite
+### Quiz
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+---
 
-## Recommended IDE Setup
+Este projeto será um quiz de perguntas e respostas.
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## 🚀 Em desenvolvimento...
+
+## 📋 Tecnologias
+Vue + Vite + 
+
+## ✒️ Autor
+Márcio Reis
+
+😊 Link de acesso: 
+
+---
+![image](https://github.com/dev-marcioreis/quiz-vue/assets/122680054/90397733-bc55-4858-aabd-cbd820323640)
+
