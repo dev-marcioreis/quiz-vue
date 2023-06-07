@@ -32,26 +32,6 @@
         'Belém'
       ],
       selected: null
-    },
-    {
-      question: 'Qual a raiz quadrada de 5?',
-      answer: 4,
-      options: [
-        '5',
-        '25',
-        '2.24'
-      ],
-      selected: null
-    },
-    {
-      question: 'Qual é a base de 5 elevado a 2?',
-      answer: 3,
-      options: [
-        '25',
-        '15',
-        '125'
-      ],
-      selected: null
     }
   ]);
 
@@ -98,11 +78,63 @@
 
   };
 
+  const reloadPage = () => {
+    window.location.reload()
+  }
+
 </script>
   
 <template>
 
-  <h1>vue</h1>
+  <main class="main container">
+    <h1>quiz</h1>
+    <section class="quiz-container" v-if="!completedQuiz">
+
+      <div class="quiz-info">
+        <p class="question">{{ getCurrentQuestion.question }}</p>
+        <p class="score">acertos: {{ scoreQuiz }}/{{ questions.length }}</p>
+      </div>
+
+      <div class="options">
+        <span v-for="(option, index) in getCurrentQuestion.options" 
+        :key="index" 
+        :class="`option ${getCurrentQuestion.selected == index 
+          ? index == getCurrentQuestion.answer 
+          ? 'correct' : 'wrong' : ''}
+          ${getCurrentQuestion.selected != null && index != getCurrentQuestion.selected 
+          ? 'disable' : ''}`">
+
+          <input 
+            type="radio" 
+            :name="getCurrentQuestion.index" 
+            :value="index" 
+            v-model="getCurrentQuestion.selected"
+            :disabled="getCurrentQuestion.selected"
+            @change="setAnswer"
+          >
+
+          <span>{{ option }}</span>
+
+        </span>
+      </div>
+
+      <button @click="nextQuestion" :disabled="!getCurrentQuestion.selected">
+        {{ 
+          getCurrentQuestion.index == questions.length - 1 
+          ? 'Finalizar' : getCurrentQuestion.selected == null 
+          ? 'Selecione uma opção' : 'Próxima pegunta'
+        }}
+      </button>
+
+    </section>
+
+    <section v-else>
+      <h2>Você terminou o quiz!</h2>
+      <p>Seus acertos: {{ scoreQuiz }} / {{ questions.length }}</p>
+      <button class="reload" @click="reloadPage()">começar denovo</button>
+    </section>
+
+  </main>
 
 </template>
 
@@ -117,7 +149,6 @@
         outline: none;
         text-decoration: none;
         list-style: none;
-        appearance: none;
         font-family: 'Poppins', sans-serif;
     }
 
